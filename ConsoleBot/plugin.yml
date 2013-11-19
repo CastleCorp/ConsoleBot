@@ -1,0 +1,17 @@
+name: ConsoleBot
+main: com.github.castlecorp.consoleBot.ConsoleBot
+version: 0.1
+author: CastleCorp
+commands:
+   consolebot:
+      description: Displays information for the ConsoleBot plugin.
+      usage: /<command> [options]
+      permission: consolebot.use
+      aliases: [cb, cbot]
+ permissions:
+   consolebot.*:
+     description: Gives access to all ConsoleBot commands
+     children:
+       consolebot.use: true
+       
+     
