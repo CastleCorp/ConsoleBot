@@ -1,4 +1,4 @@
-package com.gmail.pthomas1997.consoleBotPlugin;
+package com.github.castlecorp.consoleBot;
 
 /*
  * ConsoleBot
@@ -16,15 +16,15 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
-public final class ConsoleBotPlugin extends JavaPlugin implements Listener {
+public final class ConsoleBot extends JavaPlugin implements Listener {
 
 	public String version;
 	
 	// Declares instance...Don't touch.
-	public static ConsoleBotPlugin instance;
+	public static ConsoleBot instance;
 
 	// Gets instance
-	public static ConsoleBotPlugin getInstance(){
+	public static ConsoleBot getInstance(){
 		return instance;
 	}
 	

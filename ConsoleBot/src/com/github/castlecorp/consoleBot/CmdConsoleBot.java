@@ -1,4 +1,4 @@
-package com.gmail.pthomas1997.consoleBot;
+package com.github.castlecorp.consoleBot;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
