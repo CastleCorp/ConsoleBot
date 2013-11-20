@@ -1,7 +1,7 @@
 package com.github.castlecorp.consoleBot;
 
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
 
 import org.bukkit.ChatColor;
 /*
@@ -10,16 +10,11 @@ import org.bukkit.ChatColor;
  * - Add responses.
  */
 public class Responder {
-	
-	Map<String, String> map = new HashMap<String, String>();
-	private String keys = "";
 
-	
-	private Responder() {
-		addResponses();
-	}
+	HashMap<String, String> map = new HashMap<String, String>();
 
-	private void addResponses() {
+
+	public void addResponses() {
 		map.put("--help", printHelp());
 		map.put("hello", "Hello there!");
 		map.put("your name", "My name is @ConsoleBot"+ConsoleBot.getVersion()+", but you can call me "+ConsoleBot.getBotName());
@@ -41,14 +36,16 @@ public class Responder {
 		return beginHelpPage + helpLines + endHelpPage;
 	}
 
-	public String printList() {
-		String beginListPage = "###Begin ConsoleBot Keyword List###\n";
-		String endListPage = "###End ConsoleBot Keyword List###\n";
 
-		for (Map.Entry<String, String> entry : map.entrySet()) {
-			keys  += "- " + entry.getKey()+"\n";
+	public String printList() {
+		Set<String> keySet = map.keySet();
+		String output = "- ";
+		for( String s : keySet ) {
+			output += s + "\n - "; 
 		}
-		return ChatColor.WHITE + beginListPage + ChatColor.AQUA + keys + ChatColor.WHITE + endListPage;
-	}
+		return output;
+	} 
 
 }
+
+

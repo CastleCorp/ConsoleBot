@@ -5,10 +5,10 @@ author: CastleCorp
 commands:
    consolebot:
       description: Displays information for the ConsoleBot plugin.
-      usage: /<command> [options]
+      usage: /consolebot
       permission: consolebot.use
       aliases: [cb, cbot]
- permissions:
+permissions:
    consolebot.*:
      description: Gives access to all ConsoleBot commands
      children:
