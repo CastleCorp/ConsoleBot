@@ -1,6 +1,7 @@
 package com.github.castlecorp.consoleBot;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.ChatColor;
@@ -11,13 +12,20 @@ import org.bukkit.ChatColor;
  */
 public class Responder {
 
-	HashMap<String, String> map = new HashMap<String, String>();
+    private ConsoleBot plugin;
+	Map<String, String> map;
+
+    public Responder(ConsoleBot plugin){
+         this.plugin = plugin;
+         this.map = new HashMap<String, String>();
+         addResponses();
+    }
 
 
 	public void addResponses() {
 		map.put("--help", printHelp());
 		map.put("hello", "Hello there!");
-		map.put("your name", "My name is @ConsoleBot"+ConsoleBot.getVersion()+", but you can call me "+ConsoleBot.getBotName());
+		map.put("your name", "My name is @ConsoleBot"+plugin.getVersion()+", but you can call me "+plugin.getBotName());
 		map.put("--list", printList());
 		map.put("stop the server gracefully", ""/* add method to slowly shutdown server */);
 		map.put("crash the server", ""/* add method to crash stop the server*/);
@@ -26,7 +34,7 @@ public class Responder {
 	private String printHelp() {
 		String beginHelpPage = "###Begin ConsoleBot Help###\n";
 		String helpLines = 
-				"# Welcome to ConsoleBot "+ConsoleBot.getVersion()+"! #\n"+
+				"# Welcome to ConsoleBot "+plugin.getVersion()+"! #\n"+
 						"# To view this page, type "+ChatColor.RED+"/consolebot help"+"\n or, when in a conversation with the bot, type "+ChatColor.RED+"--help"+" #\n"+
 						"# For a list of all the things to say to the bot, type "+ChatColor.RED+"/consolebot list"+"/n, or, when in a conversation with the bot, type "+ChatColor.RED+"--list"+" #\n"+
 						"# "+" #\n";

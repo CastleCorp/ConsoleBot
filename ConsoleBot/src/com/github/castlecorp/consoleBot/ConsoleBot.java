@@ -18,22 +18,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class ConsoleBot extends JavaPlugin implements Listener {
 
 	public String version;
+    private CmdConsoleBot consoleBot;
+    private Responder responder;
 
-	// Declares instance...Don't touch.
-	public static ConsoleBot instance;
+    public ConsoleBot(){
 
-	// Gets instance
-	public static ConsoleBot getInstance(){
-		return instance;
-	}
-
-
-	public final Logger log = Logger.getLogger("ConsoleBot");
+    }
 
 	public void logger(String msg) {
-		log.info("[@ConsoleBot] "+msg);
+		getLogger().info("[@ConsoleBot] "+msg);
 
-		log.info("[@ConsoleBot] "+msg);
+		getLogger().info("[@ConsoleBot] "+msg);
 	}
 
 	public void Msg (CommandSender sender, String msg) {
@@ -41,7 +36,7 @@ public final class ConsoleBot extends JavaPlugin implements Listener {
 
 			sender.sendMessage(ChatColor.AQUA+msg);
 		}
-		else log.info("[@ConsoleBot] " +msg);
+		else getLogger().info("[@ConsoleBot] " +msg);
 	}
 
 	/**
@@ -52,12 +47,14 @@ public final class ConsoleBot extends JavaPlugin implements Listener {
 	@Override
 	public void onEnable() {
 
-		instance = this;
+        this.responder = new Responder(this);
+        this.consoleBot = new CmdConsoleBot(this,responder);
+
 
 		loadConfiguration();
 
 		// Commands
-		getCommand("consolebot").setExecutor(new CmdConsoleBot(this));
+		getCommand("consolebot").setExecutor(new CmdConsoleBot(this,responder));
 
 		// Events
 
@@ -100,12 +97,12 @@ public final class ConsoleBot extends JavaPlugin implements Listener {
 
 	}
 
-	public static String getBotName() {
-		return getInstance().getConfig().getString("Bot Name (What it calls itself)");
+	public String getBotName() {
+		return this.getConfig().getString("Bot Name (What it calls itself)");
 	}
 
-	public static String getVersion() {
-		return getInstance().getConfig().getString("Version");
+	public String getVersion() {
+		return this.getDescription().getVersion();
 	}
 
 

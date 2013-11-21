@@ -10,14 +10,11 @@ import org.bukkit.command.CommandSender;
 
 public class CmdConsoleBot implements CommandExecutor {
 
-	public ConsoleBot plugin;
-	public CmdConsoleBot(ConsoleBot plugin){
+	private ConsoleBot plugin;
+    private Responder responder;
+	public CmdConsoleBot(ConsoleBot plugin, Responder responder){
 		this.plugin = plugin;
-	}
-
-	Responder responder;
-	public CmdConsoleBot(Responder responder){
-		this.responder = responder;
+        this.responder = responder;
 	}
 	
 
