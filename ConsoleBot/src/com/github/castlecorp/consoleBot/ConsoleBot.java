@@ -7,19 +7,30 @@ package com.github.castlecorp.consoleBot;
  * <License>
  */
 
-import java.util.logging.Logger;
-
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.github.castlecorp.consoleBot.chatLogic.Conversation;
+import com.github.castlecorp.consoleBot.chatLogic.PlayerChatEvent;
+import com.github.castlecorp.consoleBot.chatLogic.Responder;
+import com.github.castlecorp.consoleBot.chatLogic.TakeAction;
+
+
 public final class ConsoleBot extends JavaPlugin implements Listener {
 
 	public String version;
-    private CmdConsoleBot consoleBot;
+   
+	@SuppressWarnings("unused")
+	private CmdConsoleBot consoleBot;
     private Responder responder;
+    private PlayerChatEvent chat;
+    private Conversation convo;
+    private TakeAction doAction;
+
 
     public ConsoleBot(){
 
@@ -32,11 +43,11 @@ public final class ConsoleBot extends JavaPlugin implements Listener {
 	}
 
 	public void Msg (CommandSender sender, String msg) {
+		
 		if(sender instanceof Player) {
-
-			sender.sendMessage(ChatColor.AQUA+msg);
-		}
-		else getLogger().info("[@ConsoleBot] " +msg);
+			sender.sendMessage(ChatColor.RED+"[@ConsoleBot("+ChatColor.WHITE+getBotName()+ChatColor.RED+")]"+ChatColor.AQUA+msg);
+		
+		} else getLogger().info("[@ConsoleBot("+getBotName()+")]" +msg);
 	}
 
 	/**
@@ -47,19 +58,22 @@ public final class ConsoleBot extends JavaPlugin implements Listener {
 	@Override
 	public void onEnable() {
 
-        this.responder = new Responder(this);
-        this.consoleBot = new CmdConsoleBot(this,responder);
-
+        this.responder = new Responder(this, doAction);
+        this.consoleBot = new CmdConsoleBot(this,responder, convo);
+        this.convo = new Conversation(this, responder, chat);
+        this.doAction = new TakeAction(this);
 
 		loadConfiguration();
 
 		// Commands
-		getCommand("consolebot").setExecutor(new CmdConsoleBot(this,responder));
+		getCommand("consolebot").setExecutor(new CmdConsoleBot(this,responder, convo));
 
 		// Events
-
+		Bukkit.getServer().getPluginManager().registerEvents(new PlayerChatEvent(this, responder, convo), this);
+		
 		// Logging
-
+		
+		
 		// Other
 		version = getDescription().getVersion();
 	}
