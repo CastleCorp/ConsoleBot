@@ -6,12 +6,13 @@ commands:
    consolebot:
       description: Displays information for the ConsoleBot plugin.
       usage: /consolebot
-      permission: consolebot.use
+      permission: consolebot.*
       aliases: [cb, cbot]
 permissions:
    consolebot.*:
      description: Gives access to all ConsoleBot commands
      children:
        consolebot.use: true
+       consolebot.use.chat: true
        
      

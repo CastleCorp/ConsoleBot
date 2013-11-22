@@ -4,23 +4,26 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.event.Listener;
 
-import com.github.castlecorp.consoleBot.chatLogic.Conversation;
+import com.github.castlecorp.consoleBot.chatLogic.ChatConversation;
 import com.github.castlecorp.consoleBot.chatLogic.Responder;
 
 
 
 
-public class CmdConsoleBot implements CommandExecutor {
+public class CmdConsoleBot implements CommandExecutor, Listener {
 
+	
 	private ConsoleBot plugin;
     private Responder responder;
-    private Conversation convo;
+    private ChatConversation convo;
     
-	public CmdConsoleBot(ConsoleBot plugin, Responder responder, Conversation convo){
+    public CmdConsoleBot(ConsoleBot plugin, Responder responder, ChatConversation convo){
 		this.plugin = plugin;
         this.responder = responder;
         this.convo = convo;
+      
 	}
 	
 
@@ -67,13 +70,24 @@ public class CmdConsoleBot implements CommandExecutor {
 
 				} else if(sender.hasPermission("consolebot.use.chat")) {
 					if(args[0].equalsIgnoreCase("chat")) {
-						plugin.Msg(sender, "Let's chat! (I'm putting us in a conversation)");
+						String instructions = ChatColor.RED+"I am starting a conversation, so that you will not have to enter commands every time you want tell me something.";
+						String instructions2 = ChatColor.RED+"\nYour messages will not appear in the normal chat, but I will be able to see them and respond.";
+						String instructions3 = ChatColor.RED+"\nWhen you are ready to end the conversation, simply type "+ChatColor.WHITE+"bye";
+						String instructions4 = ChatColor.RED+", and I will automatically stop the conversation.";
 						
+						
+					
+						plugin.Msg(sender, "Let's chat!");
+						plugin.Msg(sender, instructions);
+						plugin.Msg(sender, instructions2);
+						plugin.Msg(sender, instructions3);
+						plugin.Msg(sender, instructions4);
 						// start a conversation...player chat event for previous method in PlayerChatEvent
 						convo.startConvo();
-					}
 
-				} else {
+					}
+					
+					else {
 					plugin.Msg(sender, ChatColor.RED+"###ConsoleBot V"+plugin.version+"###");
 					plugin.Msg(sender, "Available commands are:");
 					plugin.Msg(sender, "/consolebot help");
@@ -90,6 +104,7 @@ public class CmdConsoleBot implements CommandExecutor {
 			
 
 	}
+		return false;
 }
 
-
+}
