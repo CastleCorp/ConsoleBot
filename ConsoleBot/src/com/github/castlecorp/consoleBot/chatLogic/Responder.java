@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 import com.github.castlecorp.consoleBot.ConsoleBot;
 /*
@@ -15,21 +15,21 @@ import com.github.castlecorp.consoleBot.ConsoleBot;
  */
 public class Responder {
 
-    private ConsoleBot plugin;
-    @SuppressWarnings("unused")
+	private ConsoleBot plugin;
+	@SuppressWarnings("unused")
 	private TakeAction doAction;
 	Map<String, String> map;
 
-    public Responder(ConsoleBot plugin, TakeAction doAction){
-         this.plugin = plugin;
-         this.doAction = doAction;
-         this.map = new HashMap<String, String>();
-         addResponses();
-    }
+	public Responder(ConsoleBot plugin, TakeAction doAction){
+		this.plugin = plugin;
+		this.doAction = doAction;
+		this.map = new HashMap<String, String>();
+		addResponses();
+	}
 
 
-    // add action methods from TakeAction to do things on map.get(keyValue) from PlayerChatEvent
-    
+	// add action methods from TakeAction to do things on map.get(keyValue) from PlayerChatEvent
+
 	public void addResponses() {
 		map.put("--help", printHelp());
 		map.put("--list", printList());
@@ -37,6 +37,24 @@ public class Responder {
 		map.put("your name", "My name is @ConsoleBot"+plugin.getVersion()+", but you can call me "+plugin.getBotName());
 		map.put("stop the server gracefully", ""/* add method to slowly shutdown server */);
 		map.put("crash the server", ""/* add method to crash stop the server*/);
+	}
+	
+	public void removeResponse(String key, Player senderName){
+		String msg = "Removed Keyword: " + key + " and the response that corresponds with it.";
+		plugin.Msg(senderName, msg);
+		
+		map.remove(key);
+	}
+	
+	public void addToResponses(String key, String value, Player senderName) {
+		// some shit that helps the reader blah blah blah
+		String msg = "Added Keyword: " + key + ", Response: " + value;
+		
+		plugin.Msg(senderName, msg);
+		
+		map.put(key, value);
+		
+		
 	}
 
 	private String printHelp() {
@@ -59,9 +77,10 @@ public class Responder {
 		for( String s : keySet ) {
 			output += s + "\n"; 
 		}
+
 		return output;
-	} 
+	}
 
+	
 }
-
 

@@ -38,6 +38,8 @@ public class TakeAction {
 	}
 	
 	public void serverStopSlowAction() throws InterruptedException {
+		// this had better fucking work...
+		
 		// broadcast message saying server going down in 10 seconds, 
 			// logging?
 			// broadcast countdown (wait 1s in between)
@@ -70,7 +72,7 @@ public class TakeAction {
 	
 	public void serverStopFastAction() {
 		// confirm with player (is this possible?)
-			// if yes -> broadcast messaeg server going down now... wait 1s
+			// if yes -> broadcast message server going down now... wait 1s
 				// logging?
 				// kickall
 				// stop server

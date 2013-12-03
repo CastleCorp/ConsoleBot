@@ -14,5 +14,7 @@ permissions:
      children:
        consolebot.use: true
        consolebot.use.chat: true
+       consolebot.admin.add: true
+       consolebot.admin.remove: true
        
      

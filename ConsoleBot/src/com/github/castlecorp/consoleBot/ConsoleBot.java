@@ -20,7 +20,8 @@ import com.github.castlecorp.consoleBot.chatLogic.Responder;
 import com.github.castlecorp.consoleBot.chatLogic.TakeAction;
 
 // TODO: 
-// - add command to add/remove keys and values for the bot (method call responder.map.put(String, String)
+// - add command to add/remove keys and values for the bot (method call responder.map.put(String, String), in CmdConsoleBot class
+	// there has GOT to be a better way to do all those commands and shit...honestly...
 // - add wildcards %playername%, %botname%, etc
 // - finish config.yml
 // - add comments to config.yml

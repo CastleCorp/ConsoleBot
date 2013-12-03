@@ -4,6 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import com.github.castlecorp.consoleBot.chatLogic.ChatConversation;
@@ -85,9 +86,59 @@ public class CmdConsoleBot implements CommandExecutor, Listener {
 						// start a conversation...player chat event for previous method in PlayerChatEvent
 						convo.startConvo();
 
+					} else if( args[0].equalsIgnoreCase("add") && sender.hasPermission("consolebot.admin.add") ){
+						// you had better fucking error check this shit...RIGHT HERE!
+						
+						// do that shit that splits the message at a letter. maybe %? whatever the fuck it is, do it here!
+						// this took way too fucking long to understand...c'mon now...
+						@SuppressWarnings("unused")
+						int argsTotal = args.length;
+						
+						
+						// needs to concat all args together, except then split the string at %
+						
+						String argsString = "";
+						int i = 1;
+						while( i <= args.length){
+						 argsString = args.toString();
+						i++;
+						}
+						
+						// split dat shit up!
+						String[] keyValueSplit = argsString.split(" % ");
+						
+						// get the value of the "key" and "value" to pass to the addResponse(key, value) method that you need to fucking make...
+						String key = keyValueSplit[0];
+						String value = keyValueSplit[1];
+						
+					// call method addResponse(key, value)...oh that's right...you NEVER FUCKING MADE IT! FIX THAT SHIT!
+						
+						
+							// add args 1 and 2 as key, value in Responder class
+								// not exactly like the above comment, just call addResponse(key, value) with the damn obvious variables
+						Player senderName = (Player) sender;
+						
+						responder.addToResponses(key, value, senderName);
+					
+					} else if( args[0].equalsIgnoreCase("remove") && sender.hasPermission("consolebot.admin.remove")) {
+						
+						String argsString = "";
+						int i = 1;
+						while( i <= args.length ){
+							argsString = args.toString();
+							i++;
+						}
+						
+						String key = argsString;
+						Player senderName = (Player) sender;
+						
+						responder.removeResponse(key, senderName);
+						
 					}
 					
+					// finally, the end! holy fuck...
 					else {
+						// should you make this message a variable or just be the lazy ass you are and leave it as is?
 					plugin.Msg(sender, ChatColor.RED+"###ConsoleBot V"+plugin.version+"###");
 					plugin.Msg(sender, "Available commands are:");
 					plugin.Msg(sender, "/consolebot help");
@@ -106,5 +157,4 @@ public class CmdConsoleBot implements CommandExecutor, Listener {
 	}
 		return false;
 }
-
 }

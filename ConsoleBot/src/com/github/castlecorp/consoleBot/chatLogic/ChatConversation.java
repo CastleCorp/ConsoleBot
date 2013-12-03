@@ -35,6 +35,7 @@ public class ChatConversation implements Listener {
 			AsyncPlayerChatEvent.getHandlerList().unregister(chatEvent);
 			
 			// in some way either unregister playerchatevent or do something else. i don't fucking know.
+				// welp, that shit's done...check it off the list
 			return finished;
 		}
 		return false;
