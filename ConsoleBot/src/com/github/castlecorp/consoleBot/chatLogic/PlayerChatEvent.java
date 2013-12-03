@@ -11,6 +11,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import com.github.castlecorp.consoleBot.ConsoleBot;
 
+@SuppressWarnings("unused")
 public class PlayerChatEvent implements Listener {
  
 	// THIS FUCKING CLASS...
@@ -23,6 +24,7 @@ public class PlayerChatEvent implements Listener {
 	private ConsoleBot plugin;
 	private ChatConversation convo;
 
+	
 	public PlayerChatEvent(ConsoleBot plugin, Responder responder, ChatConversation convo) {
 		this.responder = responder;
 		this.plugin = plugin;
@@ -38,23 +40,25 @@ public class PlayerChatEvent implements Listener {
 		String prefix = ChatColor.RED+"[@Bot("+plugin.getBotName()+")] ";
 
 		// suppressed for the time begin. Not sure why I made it, but it's here so I'll keep it...
-		@SuppressWarnings("unused")
 		String prefixEnd = ChatColor.RED+"[@ConsoleBot("+plugin.getBotName()+")] ";
 
 		String[] msg = e.getMessage().toLowerCase().split(" ");
-		List message = (List) Arrays.asList(msg);
+		java.util.List<String> message = Arrays.asList(msg);
 
-		e.setCancelled(true);
-
-
+		
 		boolean finished = false;
 
-		while( finished != true ) {
+		// at some point, take out the logging messages, they are just there for help...
+		
+		while( finished = false ) {
 
+			plugin.logger(msg + " : " + message);
+			
 			e.setCancelled(true);
 
 			if( message.equals("bye")) {
 
+				plugin.logger("Player said bye");
 				finished = true;
 
 
@@ -73,12 +77,13 @@ public class PlayerChatEvent implements Listener {
 	
 			} else if(!message.equals("bye")) {
 
+				plugin.logger("message was not bye, message was" + message);
 				for( int i=0; i < msg.length; i++ ) {
 					String tempMsg = msg[i];
 					if (responder.map.get(tempMsg) != null)
 					{
 						String keyValue = responder.map.get(tempMsg);
-
+						plugin.logger(keyValue);
 						player.sendMessage(prefix+keyValue);
 						player.sendMessage(prefix +""); 
 
@@ -91,7 +96,7 @@ public class PlayerChatEvent implements Listener {
 				
 				player.sendMessage(prefix+"I'm sorry, but I couldn't find any keywords in your message..." +
 						prefix+"You said:" + ChatColor.WHITE+message +ChatColor.RED+"The keywords are: " +responder.printList());
-				
+				plugin.logger("Failure");
 			}
 
 
